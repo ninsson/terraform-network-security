@@ -1,9 +1,3 @@
-locals {
-  ssh_sg_name          = "${var.project_id}-ssh-sg"
-  public_http_sg_name  = "${var.project_id}-public-http-sg"
-  private_http_sg_name = "${var.project_id}-private-http-sg"
-}
-
 data "aws_instance" "public" {
   instance_id = var.public_instance_id
 }
@@ -13,12 +7,12 @@ data "aws_instance" "private" {
 }
 
 resource "aws_security_group" "ssh" {
-  name        = local.ssh_sg_name
+  name        = var.ssh_sg_name
   description = "Security group for SSH and ICMP access"
   vpc_id      = var.vpc_id
 
   tags = {
-    Name    = local.ssh_sg_name
+    Name    = var.ssh_sg_name
     Project = var.project_id
   }
 }
@@ -42,12 +36,12 @@ resource "aws_security_group_rule" "ssh_ingress_icmp" {
 }
 
 resource "aws_security_group" "public_http" {
-  name        = local.public_http_sg_name
+  name        = var.public_http_sg_name
   description = "Security group for public HTTP access"
   vpc_id      = var.vpc_id
 
   tags = {
-    Name    = local.public_http_sg_name
+    Name    = var.public_http_sg_name
     Project = var.project_id
   }
 }
@@ -71,12 +65,12 @@ resource "aws_security_group_rule" "public_http_ingress_icmp" {
 }
 
 resource "aws_security_group" "private_http" {
-  name        = local.private_http_sg_name
+  name        = var.private_http_sg_name
   description = "Security group for internal HTTP access from public SG"
   vpc_id      = var.vpc_id
 
   tags = {
-    Name    = local.private_http_sg_name
+    Name    = var.private_http_sg_name
     Project = var.project_id
   }
 }

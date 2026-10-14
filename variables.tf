@@ -27,3 +27,18 @@ variable "allowed_ip_range" {
   type        = list(string)
   description = "List of IP ranges allowed to access the infrastructure"
 }
+
+variable "ssh_sg_name" {
+  type        = string
+  description = "Name of the SSH security group"
+}
+
+variable "public_http_sg_name" {
+  type        = string
+  description = "Name of the public HTTP security group"
+}
+
+variable "private_http_sg_name" {
+  type        = string
+  description = "Name of the private HTTP security group"
+}
